@@ -4,6 +4,8 @@ SDBOOTPART=$1
 
 [ -z "$SDBOOTPART" ] && echo Please specify SDCARD boot partition device node && exit 1
 
+[ ! -e ./fex2bin ] && make
+
 # Please do `make' first
 
 mount $SDBOOTPART /opt
@@ -20,6 +22,8 @@ EOF
 sync
 
 mkimage -C none -A arm -T script -d /opt/boot.cmd /opt/boot.scr
+
+sync
 
 umount /opt
 
